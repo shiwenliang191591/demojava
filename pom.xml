@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.javademo</groupId>
+    <artifactId>demo</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <build>
+        <!-- 打包文件名 -->
+        <finalName>demojava</finalName>
+        <!-- 资源文件目录 -->
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+        <plugins>
+            <!-- 定义编译JDK版本和源码字符集 -->
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+            </plugin>
+
+            <!-- package时同时生成source.jar -->
+            <plugin>
+                <artifactId>maven-source-plugin</artifactId>
+            </plugin>
+
+            <!-- 支持jetty插件调试启动 -->
+            <plugin>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-maven-plugin</artifactId>
+                <configuration>
+                    <!-- 支持jetty插件配置，避免启动慢 -->
+                    <contextXml>${project.basedir}/src/main/resources/jetty/jetty-context.xml</contextXml>
+                    <!-- 支持jetty插件调试启动端口号 -->
+                    <httpConnector>
+                        <port>80</port>
+                    </httpConnector>
+                    <webApp>
+                        <!-- 网站url地址根目录 -->
+                        <contextPath>/nsas</contextPath>
+                        <!-- 取消jetty web缓存，允许调试时修改静态资源和热部署 -->
+                        <defaultsDescriptor>${project.basedir}/src/main/resources/jetty/webdefault.xml</defaultsDescriptor>
+                        <!-- 多webapp root目录 -->
+                        <baseResource implementation="org.eclipse.jetty.util.resource.ResourceCollection">
+                            <resourcesAsCSV>src/main/webapp</resourcesAsCSV>
+                        </baseResource>
+                    </webApp>
+                </configuration>
+            </plugin>
+
+            <!-- 支持Tomcat7插件调试启动 -->
+            <plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <configuration>
+                    <!-- 网站url地址根目录 -->
+                    <path>/nsas</path>
+                    <!-- 网站调试启动端口号 -->
+                    <port>80</port>
+                    <!-- 默认编码 -->
+                    <uriEncoding>UTF-8</uriEncoding>
+                </configuration>
+            </plugin>
+
+            <!-- 支持多java代码目录 -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>add-source</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>src/main/java</source>
+                                <source>src/test/java</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>3.7</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>3.7</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.json</groupId>
+            <artifactId>javax.json-api</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish</groupId>
+            <artifactId>javax.json</artifactId>
+            <version>1.0</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-math3</artifactId>
+            <version>3.6</version>
+        </dependency>
+
+
+    </dependencies>
+
+
+</project>
