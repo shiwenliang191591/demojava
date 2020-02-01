@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="moa">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../../tools/moa-release-2016.04/moa.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
