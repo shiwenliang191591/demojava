@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="ensembleLibrary">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/ensembleLibrary.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
